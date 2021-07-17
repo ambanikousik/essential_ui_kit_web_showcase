@@ -1,97 +1,126 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dart_code_viewer/dart_code_viewer.dart';
 import 'package:device_frame/device_frame.dart';
+import 'package:essential_ui_kit/essential_ui_kit.dart';
 import 'package:essential_ui_kit_web_showcase/presentation/router/router.gr.dart';
 import 'package:essential_ui_kit_web_showcase/presentation/widget/x_tree_view.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class DashBoardPage extends StatelessWidget {
+class DashBoardPage extends StatefulWidget {
   const DashBoardPage({Key? key}) : super(key: key);
 
   @override
+  _DashBoardPageState createState() => _DashBoardPageState();
+}
+
+class _DashBoardPageState extends State<DashBoardPage> {
+  final TextEditingController controller = TextEditingController();
+  DeviceInfo deviceInfo = Devices.ios.iPhone11ProMax;
+  @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return Scaffold(
-        appBar: constraints.maxWidth < 800
-            ? AppBar(
-                title: const Text('Essential Ui Kit'),
-                centerTitle: true,
-                elevation: 0,
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        // context.router.push(const XTreeViewRoute());
-                        AutoRouter.innerRouterOf(context, DashBoardRoute.name)!
-                            .push(const HomeRoute());
-                      },
-                      icon: const Icon(Icons.ac_unit_rounded)),
-                  IconButton(
-                      onPressed: () {
-                        AutoRouter.innerRouterOf(context, DashBoardRoute.name)!
-                            .push(CounterRoute(title: 'asda'));
-                      },
-                      icon: const Icon(Icons.pages))
-                ],
-              )
-            : null,
-        body: Row(
-          children: [
-            if (constraints.maxWidth > 800)
-              const Expanded(flex: 2, child: XTreeViewPage()),
-            Expanded(
-              flex: 4,
-              child: Column(
-                children: [
-                  if (constraints.maxWidth > 800)
-                    Container(
-                      width: double.infinity,
-                      color: Colors.blue,
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      alignment: Alignment.center,
-                      child: const Text(
-                        'Select Device',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 25,
-                        ),
-                      ),
-                    ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: DeviceFrame(
-                        screen: const VirtualKeyboard(child: AutoRouter()),
-                        device: Devices.ios.iPadMini,
-                      ),
-                    ),
-                  ),
-                ],
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Row(
+        children: [
+          Expanded(
+              flex: 2,
+              child: LayoutBuilder(builder: (context, constraints) {
+                return constraints.maxWidth > 150
+                    ? const XTreeViewPage()
+                    : const SizedBox.shrink();
+              })),
+          Expanded(
+            flex: 4,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10),
+              child: DeviceFrame(
+                screen: const VirtualKeyboard(child: AutoRouter()),
+                device: deviceInfo,
               ),
             ),
-            if (constraints.maxWidth > 800)
-              Expanded(
-                flex: 3,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 15),
-                  child: DartCodeViewer.light(
-                    r'''
-
-
-                    
- Container(
-                padding: const EdgeInsets.all(20),
-                color: Colors.redAccent,
-                child: const Text(
-                  'This is a customized widget',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                )),
-''',
+          ),
+          Expanded(
+            flex: 3,
+            child: Column(
+              children: [
+                Container(
+                  height: 300,
+                  margin: const EdgeInsets.only(bottom: 10, top: 10, right: 10),
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: const Color(0xff30A782),
+                      borderRadius: BorderRadius.circular(30)),
+                  child: Column(
+                    children: [
+                      XDropdown<DeviceInfo>(
+                        controller: controller,
+                        displayName: (data) => data.name,
+                        hint: 'Select device',
+                        onSelected: (DeviceInfo? value) {
+                          setState(() {
+                            deviceInfo = value!;
+                          });
+                        },
+                        options: Devices.ios.all + Devices.android.all,
+                      ),
+                      XDropdown<String>(
+                        controller: controller,
+                        displayName: (data) => data,
+                        hint: 'Go to page',
+                        onSelected: (Object? value) {
+                          if (value == 'text') {
+                            AutoRouter.innerRouterOf(
+                                    context, DashBoardRoute.name)!
+                                .push(const TextRoute());
+                          } else if (value == 'counter') {
+                            AutoRouter.innerRouterOf(
+                                    context, DashBoardRoute.name)!
+                                .push(CounterRoute(title: 'counter'));
+                          }
+                        },
+                        options: const [
+                          'text',
+                          'counter',
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              )
-          ],
-        ),
-      );
-    });
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    margin: const EdgeInsets.only(bottom: 10, right: 10),
+                    decoration: BoxDecoration(
+                        color: const Color(0xff14121F),
+                        borderRadius: BorderRadius.circular(30)),
+                    child: DartCodeViewer(
+                      r'''
+                
+                
+                          
+                 Container(
+                      padding: const EdgeInsets.all(20),
+                      color: Colors.redAccent,
+                      child: const Text(
+                        'This is a customized widget',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      )),
+                ''',
+                      backgroundColor: Colors.transparent,
+                      // backgroundColor: const Color(0xff222339),
+                      classStyle: GoogleFonts.lato(color: Colors.yellow[600]),
+                      numberStyle: GoogleFonts.lato(color: Colors.orange),
+                      keywordStyle: GoogleFonts.lato(color: Colors.purple),
+                      baseStyle: GoogleFonts.lato(),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
   }
 }

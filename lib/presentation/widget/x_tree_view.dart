@@ -76,6 +76,7 @@ class _XTreeViewPageState extends State<XTreeViewPage> {
           color: Colors.blue),
       labelStyle: const TextStyle(
         fontSize: 16,
+        // color: Colors.white,
         letterSpacing: 0.3,
       ),
       parentLabelStyle: TextStyle(
@@ -92,7 +93,12 @@ class _XTreeViewPageState extends State<XTreeViewPage> {
     );
     return Container(
       decoration: const BoxDecoration(
-          border: Border(right: BorderSide(color: Colors.grey))),
+          color: Color(0xff30A782),
+          // border:
+          //     Border(right: BorderSide(color: Colors.grey[400]!, width: 0.5))
+
+          borderRadius: BorderRadius.only(
+              topRight: Radius.circular(50), bottomRight: Radius.circular(50))),
       padding: const EdgeInsets.all(10),
       child: TreeView(
         controller: _treeViewController!,
