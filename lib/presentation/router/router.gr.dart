@@ -7,10 +7,10 @@
 import 'package:auto_route/auto_route.dart' as _i1;
 import 'package:flutter/material.dart' as _i2;
 
-import '../pages/counter_page.dart' as _i5;
-import '../pages/dashboard_page.dart' as _i3;
+import '../dashboard_page.dart' as _i3;
 import '../pages/home_page.dart' as _i4;
-import '../pages/text_page.dart' as _i6;
+import '../pages/x_button_page.dart' as _i6;
+import '../pages/x_text_page.dart' as _i5;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter([_i2.GlobalKey<_i2.NavigatorState>? navigatorKey])
@@ -20,69 +20,68 @@ class AppRouter extends _i1.RootStackRouter {
   final Map<String, _i1.PageFactory> pagesMap = {
     DashBoardRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
-        builder: (_) {
-          return const _i3.DashBoardPage();
+        builder: (data) {
+          final args = data.argsAs<DashBoardRouteArgs>(
+              orElse: () => const DashBoardRouteArgs());
+          return _i3.DashBoardPage(key: args.key);
         }),
     HomeRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
         builder: (_) {
           return const _i4.HomePage();
         }),
-    CounterRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
-        routeData: routeData,
-        builder: (data) {
-          final args = data.argsAs<CounterRouteArgs>();
-          return _i5.CounterPage(key: args.key, title: args.title);
-        }),
-    TextRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
+    XTextRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
         routeData: routeData,
         builder: (_) {
-          return const _i6.TextPage();
+          return const _i5.XTextPage();
+        }),
+    XButtonRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
+        routeData: routeData,
+        builder: (_) {
+          return const _i6.XButtonPage();
         })
   };
 
   @override
   List<_i1.RouteConfig> get routes => [
         _i1.RouteConfig(DashBoardRoute.name, path: '/', children: [
-          _i1.RouteConfig(HomeRoute.name, path: 'home-page'),
-          _i1.RouteConfig(CounterRoute.name, path: 'counter-page'),
-          _i1.RouteConfig(TextRoute.name, path: 'text-page')
+          _i1.RouteConfig(HomeRoute.name, path: ''),
+          _i1.RouteConfig(XTextRoute.name, path: 'x-text-page'),
+          _i1.RouteConfig(XButtonRoute.name, path: 'x-button-page')
         ])
       ];
 }
 
-class DashBoardRoute extends _i1.PageRouteInfo {
-  const DashBoardRoute({List<_i1.PageRouteInfo>? children})
-      : super(name, path: '/', initialChildren: children);
+class DashBoardRoute extends _i1.PageRouteInfo<DashBoardRouteArgs> {
+  DashBoardRoute({_i2.Key? key, List<_i1.PageRouteInfo>? children})
+      : super(name,
+            path: '/',
+            args: DashBoardRouteArgs(key: key),
+            initialChildren: children);
 
   static const String name = 'DashBoardRoute';
 }
 
+class DashBoardRouteArgs {
+  const DashBoardRouteArgs({this.key});
+
+  final _i2.Key? key;
+}
+
 class HomeRoute extends _i1.PageRouteInfo {
-  const HomeRoute() : super(name, path: 'home-page');
+  const HomeRoute() : super(name, path: '');
 
   static const String name = 'HomeRoute';
 }
 
-class CounterRoute extends _i1.PageRouteInfo<CounterRouteArgs> {
-  CounterRoute({_i2.Key? key, required String title})
-      : super(name,
-            path: 'counter-page',
-            args: CounterRouteArgs(key: key, title: title));
+class XTextRoute extends _i1.PageRouteInfo {
+  const XTextRoute() : super(name, path: 'x-text-page');
 
-  static const String name = 'CounterRoute';
+  static const String name = 'XTextRoute';
 }
 
-class CounterRouteArgs {
-  const CounterRouteArgs({this.key, required this.title});
+class XButtonRoute extends _i1.PageRouteInfo {
+  const XButtonRoute() : super(name, path: 'x-button-page');
 
-  final _i2.Key? key;
-
-  final String title;
-}
-
-class TextRoute extends _i1.PageRouteInfo {
-  const TextRoute() : super(name, path: 'text-page');
-
-  static const String name = 'TextRoute';
+  static const String name = 'XButtonRoute';
 }

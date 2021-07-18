@@ -1,10 +1,10 @@
 import 'package:essential_ui_kit_web_showcase/application/page_controller.dart';
-import 'package:essential_ui_kit_web_showcase/domain/widget_state.dart';
+import 'package:essential_ui_kit_web_showcase/domain/widget_state/widget_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'counter_page.dart';
-import 'text_page.dart';
+import 'x_text_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
       onChange: (context, nextPage) {
         Widget page = nextPage.map(
             counter: (counter) => const CounterPage(title: 'title'),
-            general: (general) => const TextPage());
+            general: (general) => const XTextPage());
         Navigator.push(context, MaterialPageRoute(builder: (context) => page));
       },
       child: Scaffold(

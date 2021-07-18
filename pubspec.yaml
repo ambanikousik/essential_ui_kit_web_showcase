@@ -31,7 +31,7 @@ dependencies:
     sdk: flutter
   dart_code_viewer:
     git:
-      url: https://github.com/JoseAlba/dart-code-viewer.git
+      url: https://github.com/ambanikousik/dart-code-viewer-plus.git
   essential_ui_kit:
     path: ../essential_ui_kit
   auto_route: ^2.2.0

@@ -181,8 +181,8 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: b3c6372ce6cec712fe8372ce973d1dfbc99ab2fd
-      url: "https://github.com/JoseAlba/dart-code-viewer.git"
+      resolved-ref: d81aacc201c82f0c7b765dc69e953ed639517e3f
+      url: "https://github.com/ambanikousik/dart-code-viewer-plus.git"
     source: git
     version: "0.0.2"
   dart_style:

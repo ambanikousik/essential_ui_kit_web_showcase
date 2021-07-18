@@ -1,4 +1,4 @@
-import 'package:essential_ui_kit_web_showcase/domain/widget_state.dart';
+import 'package:essential_ui_kit_web_showcase/domain/widget_state/widget_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final pageNotifier =
