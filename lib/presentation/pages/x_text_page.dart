@@ -1,4 +1,4 @@
-import 'package:essential_ui_kit/widgets/x_text.dart';
+import 'package:essential_ui_kit/essential_ui_kit.dart';
 import 'package:flutter/material.dart';
 
 class XTextPage extends StatelessWidget {

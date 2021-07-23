@@ -82,9 +82,12 @@ class _XTreeViewPageState extends State<XTreeViewPage> {
               selectedKey: key,
             );
           });
-          context
-              .read(routeNotifier.notifier)
-              .toRoute(_treeViewController!.selectedNode?.data);
+
+          if (_treeViewController!.selectedNode?.data is NodeToRoute) {
+            context
+                .read(routeNotifier.notifier)
+                .toRoute(_treeViewController!.selectedNode?.data);
+          }
         },
         theme: _treeViewTheme,
       ),

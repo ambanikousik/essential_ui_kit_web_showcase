@@ -96,6 +96,11 @@ class DashBoardPage extends StatelessWidget {
                           controller: controller
                             ..text = Devices.ios.iPhone11ProMax.name,
                           displayName: (data) => data.name,
+                          labelText: (label) => XText(
+                            label,
+                            textType: TextType.headLine6,
+                            color: Colors.white,
+                          ),
                           hint: 'Select device',
                           onSelected: (DeviceInfo? value) {
                             context
@@ -104,14 +109,14 @@ class DashBoardPage extends StatelessWidget {
                           },
                           options: Devices.ios.all + Devices.android.all,
                         ),
-                        XSwitch(
+                        XCheckBox(
                             initValue: true,
                             onChanged: (value) {
                               context
                                   .read(deviceNotifier.notifier)
                                   .changeFrameVisibility(value);
                             },
-                            title: 'Show device frame?')
+                            title: 'Show device frame'),
                       ],
                     ),
                   ),

@@ -205,7 +205,7 @@ packages:
       path: "../essential_ui_kit"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.2"
   fake_async:
     dependency: transitive
     description:

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart' as _i2;
 import '../dashboard_page.dart' as _i3;
 import '../pages/home_page.dart' as _i4;
 import '../pages/x_button_page.dart' as _i6;
+import '../pages/x_dialogue_page.dart' as _i7;
 import '../pages/x_text_page.dart' as _i5;
 
 class AppRouter extends _i1.RootStackRouter {
@@ -39,6 +40,11 @@ class AppRouter extends _i1.RootStackRouter {
         routeData: routeData,
         builder: (_) {
           return const _i6.XButtonPage();
+        }),
+    XDialogueRoute.name: (routeData) => _i1.MaterialPageX<dynamic>(
+        routeData: routeData,
+        builder: (_) {
+          return const _i7.XDialoguePage();
         })
   };
 
@@ -47,7 +53,8 @@ class AppRouter extends _i1.RootStackRouter {
         _i1.RouteConfig(DashBoardRoute.name, path: '/', children: [
           _i1.RouteConfig(HomeRoute.name, path: ''),
           _i1.RouteConfig(XTextRoute.name, path: 'x-text-page'),
-          _i1.RouteConfig(XButtonRoute.name, path: 'x-button-page')
+          _i1.RouteConfig(XButtonRoute.name, path: 'x-button-page'),
+          _i1.RouteConfig(XDialogueRoute.name, path: 'x-dialogue-page')
         ])
       ];
 }
@@ -84,4 +91,10 @@ class XButtonRoute extends _i1.PageRouteInfo {
   const XButtonRoute() : super(name, path: 'x-button-page');
 
   static const String name = 'XButtonRoute';
+}
+
+class XDialogueRoute extends _i1.PageRouteInfo {
+  const XDialogueRoute() : super(name, path: 'x-dialogue-page');
+
+  static const String name = 'XDialogueRoute';
 }
